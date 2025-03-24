@@ -4,7 +4,7 @@ name: Publish to reactsquad.neocities.org
 on:
   workflow_dispatch:
   push:
-    branches: ["main"]
+    branches: ["staging"]
     # run changes on a specific directory
     paths:
       - 'staging/**'

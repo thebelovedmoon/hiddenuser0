@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CLICK ANYWHERE TO UNMUTE.</title>
+    <link rel="stylesheet" href="/res/style.css" />
+    <style>
+      video {
+        width: 100vw;
+        height: 100vh;
+        -o-object-fit: cover;
+        object-fit: cover;
+      }
+    </style>
+    <script>
+      function unmute() {
+        document.getElementById("rheaVid").muted = false;
+        document.getElementById("rheaVid").style.cursor = "initial";
+        document.getElementById("rheaVid").style.pointerEvents = "none";
+        document.title = "numitrova.html";
+      }
+    </script>
+  </head>
+  <body>
+    <video
+      id="rheaVid"
+      autoplay
+      muted
+      onclick="unmute()"
+      onended="window.close()"
+      preload="metadata"
+    >
+      <source
+        src="https://raw.githubusercontent.com/thebelovedmoon/hiddenuser0/refs/heads/main/media/numitrova.mp4"
+        type="video/mp4"
+      />
+      <track
+        label="English"
+        kind="subtitles"
+        srclang="en"
+        src="https://raw.githubusercontent.com/thebelovedmoon/hiddenuser0/refs/heads/main/media/numitrova.vtt"
+        default
+      />
+    </video>
+  </body>
+</html>

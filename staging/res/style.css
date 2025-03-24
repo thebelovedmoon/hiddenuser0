@@ -1,0 +1,50 @@
+@import url('https://fonts.cdnfonts.com/css/fixedsys-excelsior-301');
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow-x: hidden;
+  -ms-word-wrap: break-word;
+  word-wrap: break-word;
+  scroll-behavior: smooth;
+}
+* {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+html {
+  background-color: #262626;
+  color: white;
+}
+
+body {
+  font-family: "Fixedsys Excelsior 3.01", monospace;
+}
+
+.centering {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+.dialog {
+  padding: 15px;
+  border: 1px red solid;
+  border-radius: 5px;
+}
+.dialog > * {
+  text-align: center;
+}
+#synInput {
+  background-color: unset;
+  border-width: 1px;
+  border-color: red;
+  border-style: none none solid none;
+  font-family: inherit;
+  color: white;
+  font-size: inherit;
+}

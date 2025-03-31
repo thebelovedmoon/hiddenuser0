@@ -1,6 +1,8 @@
 function execCommands(args) {
   if (args.includes("zero.exec")) {
     zero_exec(args);
+  } else if (args.includes("sys.exec")) {
+    sys_exec(args);
   } else {
     switch (args) {
       case "help":
@@ -9,7 +11,7 @@ function execCommands(args) {
           "beforeend",
           `
           <p>Useful commands:</p>
-          <p>?, cd, dir, exit, help, logoff, reboot, whoami</p>
+          <p>?, cd, cls, dir, exit, help, logoff, reboot, whoami</p>
           <br />
           <p>
             You can launch a program as {program}.exec. For more information about that
@@ -63,6 +65,9 @@ function execCommands(args) {
           </p>
           `
         );
+        break;
+      case "cls":
+        document.getElementById("cmdInterface").innerHTML = "";
         break;
       default:
         document.getElementById("cmdInterface").insertAdjacentHTML(

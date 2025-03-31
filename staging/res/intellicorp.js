@@ -1,5 +1,6 @@
 var terminalInstance = 0,
-  typedArgs = "";
+  typedArgs = "",
+  lastSavedArg = "";
 
 function init() {
   curBlink();
@@ -183,6 +184,10 @@ function intellicorpTerminal() {
   typedArgs = "";
   const specialKeys = [
     "Alt",
+    "ArrowDown",
+    "ArrowLeft",
+    "ArrowRight",
+    "ArrowUp",
     "Backspace",
     "CapsLock",
     "ContextMenu",
@@ -234,6 +239,9 @@ function intellicorpTerminal() {
     `
   );
   document
+    .getElementById("curs")
+    .scrollIntoView({block: "end"});
+  document
     .getElementById("typeSomeStuff-" + terminalInstance)
     .setAttribute("contenteditable", "plaintext-only");
   // document.getElementById("typeSomeStuff-" + terminalInstance).focus();
@@ -248,6 +256,7 @@ function intellicorpTerminal() {
           document
             .getElementById("typeSomeStuff-" + terminalInstance)
             .setAttribute("contenteditable", "false");
+          lastSavedArg = typedArgs;
           execCommands(typedArgs);
         } else if (
           ((tSS.key === "Control" || tSS.key === "Meta") && tSS.key === "R") ||
@@ -258,6 +267,11 @@ function intellicorpTerminal() {
         ) {
           tSS.preventDefault();
           execCommands("reboot");
+        } else if (tSS.key === "ArrowUp") {
+          document.getElementById(
+            "typeSomeStuff-" + terminalInstance
+          ).innerHTML = lastSavedArg;
+          typedArgs = lastSavedArg;
         }
       } else {
         typedArgs += tSS.key;

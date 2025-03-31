@@ -31,7 +31,8 @@ function sys_exec(args) {
         `
       );
       setTimeout(() => {
-        window.close();
+        document.getElementById("cmdInterface").innerHTML = "";
+        window.location.replace("/");
       }, 1000);
       break;
     default:

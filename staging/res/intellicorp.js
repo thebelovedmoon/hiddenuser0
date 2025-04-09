@@ -233,7 +233,7 @@ function intellicorpTerminal() {
   document.getElementById("cmdInterface").insertAdjacentHTML(
     "beforeend",
     `
-    <p>> <span id="typeSomeStuff-` +
+    <p>/> <span id="typeSomeStuff-` +
       terminalInstance +
       `"></span><span id="curs">&#x2589;</span></p>
     `

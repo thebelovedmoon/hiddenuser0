@@ -3,6 +3,10 @@ function execCommands(args) {
     zero_exec(args);
   } else if (args.includes("sys.exec")) {
     sys_exec(args);
+  } else if (args.includes("cd")) {
+    cdir(args);
+  } else if (args.includes("dir")) {
+    lsdir(args);
   } else {
     switch (args) {
       case "help":
@@ -46,16 +50,6 @@ function execCommands(args) {
         setTimeout(() => {
           location.reload();
         }, 1000);
-        break;
-      case "dir":
-        document.getElementById("cmdInterface").insertAdjacentHTML(
-          "beforeend",
-          `
-          <p>
-            /boot&emsp;/config&emsp;/crash&emsp;/intellicorp&emsp;/storage&emsp;/user&emsp;dbgview.exec&emsp;GettingStarted.man&emsp;PrograMonitor.exec&emsp;sys.exec&emsp;zero.exec
-          </p>
-          `
-        );
         break;
       case "whoami":
         document.getElementById("cmdInterface").insertAdjacentHTML(

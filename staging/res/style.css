@@ -31,10 +31,14 @@ body {
   align-items: center;
   text-align: center;
 }
-.dialog {
+.dialog, button {
   padding: 15px;
   border: 1px red solid;
   border-radius: 5px;
+  background-color: #262626;
+  font-family: inherit;
+  color: inherit;
+  font-size: inherit;
 }
 .dialog > * {
   text-align: center;
@@ -47,4 +51,33 @@ body {
   font-family: inherit;
   color: white;
   font-size: inherit;
+}
+
+button {
+  padding: 7.5px 15px;
+  cursor: pointer;
+  margin: 0 0 0.5rem 0 !important;
+}
+button:hover {
+  background-color: #131313;
+  transition: background-color 0.3s ease;
+}
+
+#dlg {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background-color: #00000060;
+  z-index: 1000;
+}
+#dlg > * {
+  max-width: 100%;
+  padding: 15px;
+  border: 1px red solid;
+  border-radius: 5px;
+  background-color: #262626;
 }

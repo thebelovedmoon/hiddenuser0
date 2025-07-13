@@ -31,7 +31,7 @@
       autoplay
       muted
       onclick="unmute()"
-      onended="window.close()"
+      onended="window.parent.document.getElementById('dlg').remove()"
       preload="metadata"
     >
       <source

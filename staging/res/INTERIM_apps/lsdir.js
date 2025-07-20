@@ -4,80 +4,61 @@ function lsdir(args) {
       case "boot":
       case "storage":
       case "config":
-        document.getElementById("cmdInterface").insertAdjacentHTML(
-          "beforeend",
-          `
-          <p>Access is denied.</p>
-          `
-        );
-        break;
+        return document.getElementById("cmdInterface").insertAdjacentHTML("beforeend",`
+          <p>'dir' not allowed: System directory</p>
+        `);
       case "intellicorp":
-        document.getElementById("cmdInterface").insertAdjacentHTML(
-          "beforeend",
-          `
-          <p>
-            prog.exec
-          </p>
-          `
-        );
-        break;
+        return document.getElementById("cmdInterface").insertAdjacentHTML("beforeend",`
+          <p>prog.exec</p>
+        `);
       case "crash":
       case "user":
-        document.getElementById("cmdInterface").insertAdjacentHTML(
-          "beforeend",
-          `
-          <p>
-          </p>
-          `
-        );
-        break;
+        return document.getElementById("cmdInterface").insertAdjacentHTML("beforeend",`
+          <p></p>
+        `);
       default:
-        break;
+        return;
     }
   } else if (args.includes("dir ")) { // assume lsdir from current directory
     switch (args.replace("dir ", "")) {
       case "boot":
       case "storage":
       case "config":
-        document.getElementById("cmdInterface").insertAdjacentHTML(
-          "beforeend",
-          `
-          <p>Access is denied.</p>
-          `
-        );
-        break;
+        return document.getElementById("cmdInterface").insertAdjacentHTML("beforeend",`
+          <p>'dir' not allowed: System directory</p>
+        `);
       case "intellicorp":
-        document.getElementById("cmdInterface").insertAdjacentHTML(
-          "beforeend",
-          `
-          <p>
-            prog.exec
-          </p>
-          `
-        );
-        break;
+        return document.getElementById("cmdInterface").insertAdjacentHTML("beforeend",`
+          <p>prog.exec</p>
+        `);
       case "crash":
       case "user":
-        document.getElementById("cmdInterface").insertAdjacentHTML(
-          "beforeend",
-          `
-          <p>
-          </p>
-          `
-        );
-        break;
+        return document.getElementById("cmdInterface").insertAdjacentHTML("beforeend",`
+          <p></p>
+        `);
       default:
-        break;
+        return;
     }
   } else {
-    document.getElementById("cmdInterface").insertAdjacentHTML(
-      "beforeend",
-      `
-      <p>
-        /boot&emsp;/config&emsp;/crash&emsp;/intellicorp&emsp;/storage&emsp;/user&emsp;dbgview.exec&emsp;GettingStarted.man&emsp;PrograMonitor.exec&emsp;sys.exec&emsp;zero.exec
-      </p>
-      `
-    );
+    return document.getElementById("cmdInterface").insertAdjacentHTML("beforeend",`
+      <p>${dirList()}</p>
+    `);
   }
-  return;
+}
+
+function dirList() {
+  let dirs = [
+    "/boot",
+    "/config",
+    "/crash",
+    "/intellicorp",
+    "/storage",
+    "/user",
+    "dbgview.exec",
+    "GettingStarted.man",
+    "PrograMonitor.exec",
+    "sys.exec",
+    "zero.exec"
+  ];
+  return dirs.sort().join("&emsp;");
 }

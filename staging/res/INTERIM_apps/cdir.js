@@ -4,72 +4,42 @@ function cdir(args) {
       case "boot":
       case "storage":
       case "config":
-        document.getElementById("cmdInterface").insertAdjacentHTML(
-          "beforeend",
-          `
-          <p>Access is denied.</p>
-          `
-        );
-        break;
+        return document.getElementById("cmdInterface").insertAdjacentHTML("beforeend",`
+          <p>'cd' not allowed: System directory</p>
+        `);
       case "intellicorp":
       case "crash":
       case "user":
-        document.getElementById("cmdInterface").insertAdjacentHTML(
-          "beforeend",
-          `
-          <p>Access is denied. But you can view the files with 'dir'.</p>
-          `
-        );
-        break;
+        return document.getElementById("cmdInterface").insertAdjacentHTML("beforeend",`
+          <p>'cd' not allowed, but you can view the files with 'dir'.</p>
+        `);
       default:
-        document.getElementById("cmdInterface").insertAdjacentHTML(
-          "beforeend",
-          `
+        return document.getElementById("cmdInterface").insertAdjacentHTML("beforeend",`
           <p>The system cannot find the path specified.</p>
-          `
-        );
-        break;
+        `);
     }
   } else if (args.includes("cd ")) { // assume cdir from current directory
     switch (args.replace("cd ", "")) {
       case "boot":
       case "storage":
       case "config":
-        document.getElementById("cmdInterface").insertAdjacentHTML(
-          "beforeend",
-          `
-          <p>Access is denied.</p>
-          `
-        );
-        break;
+        return document.getElementById("cmdInterface").insertAdjacentHTML("beforeend",`
+          <p>'cd' not allowed: System directory</p>
+        `);
       case "intellicorp":
       case "crash":
       case "user":
-        document.getElementById("cmdInterface").insertAdjacentHTML(
-          "beforeend",
-          `
-          <p>Access is denied. But you can view the files with 'dir'.</p>
-          `
-        );
-        break;
+        return document.getElementById("cmdInterface").insertAdjacentHTML("beforeend",`
+          <p>'cd' not allowed, but you can view the files with 'dir'.</p>
+        `);
       default:
-        document.getElementById("cmdInterface").insertAdjacentHTML(
-          "beforeend",
-          `
+        return document.getElementById("cmdInterface").insertAdjacentHTML("beforeend",`
           <p>The system cannot find the path specified.</p>
-          `
-        );
-        break;
+        `);
     }
   } else {
-    document.getElementById("cmdInterface").insertAdjacentHTML(
-      "beforeend",
-      `
-      <p>
-        /
-      </p>
-      `
-    );
+    return document.getElementById("cmdInterface").insertAdjacentHTML("beforeend",`
+      <p>${localStorage.getItem("PRINT_WORKING_DIRECTORY")}</p>
+    `);
   }
-  return;
 }

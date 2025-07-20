@@ -3,151 +3,101 @@ var terminalInstance = 0,
   lastSavedArg = "";
 
 function init() {
-  curBlink();
+  // curBlink();
   intelliStart();
 }
 
 function curBlink() {
-  setInterval(() => {
-    document.querySelector("#curs").classList.toggle("curHide");
-  }, 600);
+  setInterval(() => { document.querySelector("#curs").classList.toggle("curHide"); }, 600);
 }
 
 function intelliStart() {
   let cmdIntrf = document.getElementById("cmdInterface");
-  cmdIntrf.insertAdjacentHTML(
-    "beforeend",
-    `
-    <p>Starting up...<span id="curs">&#x2589;</span></p>
-    `
-  );
+  cmdIntrf.insertAdjacentHTML("beforeend",`
+    <p>Starting up...</p>
+  `);
   setTimeout(() => {
-    cmdIntrf.insertAdjacentHTML(
-      "beforeend",
-      `
+    cmdIntrf.insertAdjacentHTML("beforeend",`
       <div id="progBSeq">
-        <br />
+        <br>
         <div id="progBar"></div>
       </div>
-      `
-    );
+    `);
     progBar();
     setTimeout(() => {
       document.getElementById("progBSeq").remove();
-      document.getElementById("curs").remove();
       setTimeout(() => {
-        cmdIntrf.insertAdjacentHTML(
-          "beforeend",
-          `
-          <br />
-          <p>Provisioning virtual machine. Please wait.<span id="curs">&#x2589;</span></>
-          `
-        );
+        cmdIntrf.insertAdjacentHTML("beforeend",`
+          <br>
+          <p>Provisioning virtual machine. Please wait.</>
+        `);
         setTimeout(() => {
-          document.getElementById("curs").remove();
-          cmdIntrf.insertAdjacentHTML(
-            "beforeend",
-            `
-            <p>Connecting to server...<span id="curs">&#x2589;</span></p>
-            `
-          );
+          cmdIntrf.insertAdjacentHTML("beforeend",`
+            <p>Connecting to server...</p>
+          `);
           setTimeout(() => {
-            cmdIntrf.insertAdjacentHTML(
-              "beforeend",
-              `
+            cmdIntrf.insertAdjacentHTML("beforeend",`
               <div id="progBSeq">
-                <br />
+                <br>
                 <div id="progBar"></div>
               </div>
-              `
-            );
+            `);
             progBar();
             setTimeout(() => {
               document.getElementById("progBSeq").remove();
-              document.getElementById("curs").remove();
               setTimeout(() => {
-                cmdIntrf.insertAdjacentHTML(
-                  "beforeend",
-                  `
-                  <br />
-                  <p>Preparing program. Please wait.<span id="curs">&#x2589;</span></p>
-                  `
-                );
+                cmdIntrf.insertAdjacentHTML("beforeend",`
+                  <br>
+                  <p>Preparing program. Please wait.</p>
+                `);
                 setTimeout(() => {
-                  document.getElementById("curs").remove();
-                  cmdIntrf.insertAdjacentHTML(
-                    "beforeend",
-                    `
-                    <br />
-                    <p>Computer name: VIRTUAL_1009<span id="curs">&#x2589;</span></p>
-                    `
-                  );
+                  cmdIntrf.insertAdjacentHTML("beforeend",`
+                    <br>
+                    <p>Computer name: VIRTUAL_1009</p>
+                  `);
                   setTimeout(() => {
-                    document.getElementById("curs").remove();
-                    cmdIntrf.insertAdjacentHTML(
-                      "beforeend",
-                      `
-                      <p>Total memory installed: 1 GB<span id="curs">&#x2589;</span></p>
-                      `
-                    );
+                    cmdIntrf.insertAdjacentHTML("beforeend",`
+                      <p>Total memory installed: 1 GB</p>
+                    `);
                     setTimeout(() => {
-                      document.getElementById("curs").remove();
-                      cmdIntrf.insertAdjacentHTML(
-                        "beforeend",
-                        `
-                        <p id="audioCheck">Audio: Checking...<span id="curs">&#x2589;</span></p>
-                        `
-                      );
+                      cmdIntrf.insertAdjacentHTML("beforeend",`
+                        <p id="audioCheck">Audio: Checking...</p>
+                      `);
                       setTimeout(() => {
-                        cmdIntrf.insertAdjacentHTML(
-                          "beforeend",
-                          `
+                        cmdIntrf.insertAdjacentHTML("beforeend",`
                           <div id="progBSeq">
-                            <br />
+                            <br>
                             <div id="progBar"></div>
                           </div>
-                          `
-                        );
+                        `);
                         progBar();
                         setTimeout(() => {
                           document.getElementById("progBSeq").remove();
-                          document.getElementById("curs").remove();
                           document.getElementById("audioCheck").innerHTML =
                             "Audio: [ OK ]";
                           setTimeout(() => {
-                            cmdIntrf.insertAdjacentHTML(
-                              "beforeend",
-                              `
-                              <p id="videoCheck">Video: Checking...<span id="curs">&#x2589;</span></p>
-                              `
-                            );
+                            cmdIntrf.insertAdjacentHTML("beforeend",`
+                              <p id="videoCheck">Video: Checking...</p>
+                            `);
                             setTimeout(() => {
-                              cmdIntrf.insertAdjacentHTML(
-                                "beforeend",
-                                `
+                              cmdIntrf.insertAdjacentHTML("beforeend",`
                                 <div id="progBSeq">
-                                  <br />
+                                  <br>
                                   <div id="progBar"></div>
                                 </div>
-                                `
-                              );
+                              `);
                               progBar();
-                              setTimeout(() => {
-                                document.getElementById("progBSeq").remove();
-                                document.getElementById("curs").remove();
-                                document.getElementById(
-                                  "videoCheck"
-                                ).innerHTML = "Video: [ OK ]";
+                              setTimeout(() => {document.getElementById("progBSeq").remove();document.getElementById("videoCheck").innerHTML = "Video: [ OK ]";
                                 setTimeout(() => {
-                                  cmdIntrf.insertAdjacentHTML(
-                                    "beforeend",
-                                    `
+                                  cmdIntrf.insertAdjacentHTML("beforeend",`
                                     <p>IP address: 148.37.170.203</p>
-                                    `
-                                  );
+                                  `);
                                   setTimeout(() => {
                                     cmdIntrf.innerHTML = "";
                                     setTimeout(() => {
+                                      if (!localStorage.getItem("PRINT_WORKING_DIRECTORY")) {
+                                        localStorage.setItem("PRINT_WORKING_DIRECTORY", "/");
+                                      }
                                       intellicorpTerminal();
                                     }, 250);
                                   }, 2500);
@@ -230,34 +180,35 @@ function intellicorpTerminal() {
     "Tab",
   ];
   document.title = "INTERIM Terminal";
-  document.getElementById("cmdInterface").insertAdjacentHTML(
-    "beforeend",
-    `
-    <p>/> <span id="typeSomeStuff-` +
-      terminalInstance +
-      `"></span><span id="curs">&#x2589;</span></p>
-    `
-  );
+  document.getElementById("cmdInterface").insertAdjacentHTML("beforeend", `
+    <p><span>${localStorage.getItem("PRINT_WORKING_DIRECTORY")}></span>&nbsp;<span id="typeSomeStuff-${terminalInstance}"></span></p>
+  `);
+  document.getElementById(`typeSomeStuff-${terminalInstance}`).setAttribute("contenteditable", "plaintext-only");
+  setTimeout(() => { document.getElementById(`typeSomeStuff-${terminalInstance}`).focus(); }, 0);
+  document.body.addEventListener("click", () => { document.getElementById(`typeSomeStuff-${terminalInstance}`).focus(); });
   document
-    .getElementById("curs")
-    .scrollIntoView({block: "end"});
-  document
-    .getElementById("typeSomeStuff-" + terminalInstance)
-    .setAttribute("contenteditable", "plaintext-only");
-  // document.getElementById("typeSomeStuff-" + terminalInstance).focus();
-  document
-    .getElementById("typeSomeStuff-" + terminalInstance)
+    .getElementById(`typeSomeStuff-${terminalInstance}`)
     .addEventListener("keydown", (tSS) => {
       if (specialKeys.includes(tSS.key)) {
         if (tSS.key === "Backspace") {
           typedArgs = typedArgs.slice(0, -1);
         } else if (tSS.key === "Enter") {
-          document.getElementById("curs").remove();
-          document
-            .getElementById("typeSomeStuff-" + terminalInstance)
-            .setAttribute("contenteditable", "false");
+          document.getElementById(`typeSomeStuff-${terminalInstance}`).setAttribute("contenteditable", "false");
+          document.getElementById(`typeSomeStuff-${terminalInstance}`).blur();
           lastSavedArg = typedArgs;
-          execCommands(typedArgs);
+          if (!localStorage.getItem("PRINT_WORKING_DIRECTORY")) {
+            document.getElementById("cmdInterface").insertAdjacentHTML("beforeend", `
+              <p>Working directory not found -- returning to root...</p>
+            `);
+            setTimeout(() => {
+              lastSavedArg = "";
+              localStorage.setItem("PRINT_WORKING_DIRECTORY", "/");
+              document.getElementById("cmdInterface").insertAdjacentHTML("beforeend", "<br>");
+              intellicorpTerminal();
+            }, 1000);
+          } else {
+            execCommands(typedArgs);
+          }
         } else if (
           ((tSS.key === "Control" || tSS.key === "Meta") && tSS.key === "R") ||
           ((tSS.key === "Control" || tSS.key === "Meta") &&
@@ -265,17 +216,14 @@ function intellicorpTerminal() {
             tSS.key === "R") ||
           tSS.key === "F5"
         ) {
+          tSS.stopImmediatePropagation();
           tSS.preventDefault();
           execCommands("reboot");
         } else if (tSS.key === "ArrowUp") {
-          document.getElementById(
-            "typeSomeStuff-" + terminalInstance
-          ).innerHTML = lastSavedArg;
+          document.getElementById(`typeSomeStuff-${terminalInstance}`).innerHTML = lastSavedArg;
           typedArgs = lastSavedArg;
         }
-      } else {
-        typedArgs += tSS.key;
-      }
+      } else { typedArgs += tSS.key; }
       // document.title = "> " + typedArgs;
     });
 }

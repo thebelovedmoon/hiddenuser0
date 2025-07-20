@@ -1,48 +1,42 @@
 function sys_exec(args) {
   switch (args.replace("sys.exec ", "")) {
     case "-help":
-      document.getElementById("cmdInterface").insertAdjacentHTML(
-        "beforeend",
-        `
+      return document.getElementById("cmdInterface").insertAdjacentHTML("beforeend",`
         <p>Available commands for sys.exec:</p>
-        <br />
+        <br>
         <p>&emsp;-help - Shows this help prompt.</p>
-        <p>&emsp;-poweroff - Logs out of the client. Same as 'exit' and 'poweroff'.</p>
-        <p>&emsp;-reboot - Reboots the client. Same as 'reboot'.</p>
-        `
-      );
-      break;
+        <p>&emsp;-logoff - Logs out of the machine. Same as 'exit' and 'logoff'.</p>
+        <p>&emsp;-poweroff - Powers off the machine and terminates connection to website. Same as 'poweroff'.</p>
+        <p>&emsp;-reboot - Reboots the machine. Same as 'reboot'.</p>
+      `);
     case "-reboot":
-      document.getElementById("cmdInterface").insertAdjacentHTML(
-        "beforeend",
-        `
+      document.getElementById("cmdInterface").insertAdjacentHTML("beforeend",`
         <p>Executing system reboot.</p>
-        `
-      );
-      setTimeout(() => {
+      `);
+      return setTimeout(() => {
+        document.getElementById("cmdInterface").innerHTML = "";
         location.reload();
       }, 1000);
-      break;
-    case "-poweroff":
-      document.getElementById("cmdInterface").insertAdjacentHTML(
-        "beforeend",
-        `
+    case "-logoff":
+      document.getElementById("cmdInterface").insertAdjacentHTML("beforeend",`
         <p>Executing system logoff.</p>
-        `
-      );
-      setTimeout(() => {
+      `);
+      return setTimeout(() => {
         document.getElementById("cmdInterface").innerHTML = "";
         window.location.replace("/");
       }, 1000);
-      break;
+    case "-poweroff":
+      document.getElementById("cmdInterface").insertAdjacentHTML("beforeend",`
+        <p>Executing system termination.</p>
+      `);
+      return setTimeout(() => {
+        document.getElementById("cmdInterface").innerHTML = "";
+        localStorage.removeItem("PRINT_WORKING_DIRECTORY");
+        window.location.replace("/?m=terminated");
+      }, 1000);
     default:
-      document.getElementById("cmdInterface").insertAdjacentHTML(
-        "beforeend",
-        `
+      return document.getElementById("cmdInterface").insertAdjacentHTML("beforeend",`
         <p>Required parameter missing. See sys.exec -help for available commands.</p>
-        `
-      );
-      break;
+      `);
   }
-  return;
 }

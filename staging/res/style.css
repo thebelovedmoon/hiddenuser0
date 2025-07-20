@@ -81,3 +81,5 @@ button:hover {
   border-radius: 5px;
   background-color: #262626;
 }
+
+span[id^="typeSomeStuff-"]:focus { outline: none; }

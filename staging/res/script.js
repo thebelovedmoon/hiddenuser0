@@ -1,5 +1,23 @@
 let urlArgs = new URLSearchParams(window.location.search).get("m");
 
+function urlQue() {
+  if (urlArgs == "terminated") {
+    document.body.innerHTML = `
+      <div id="dlg">
+        <div style="background-color: black;">
+          <p style="color: red;">CONNECTION TERMINATED</p>
+        </div>
+      </div>
+    `;
+    document.body.style.backgroundColor = "black";
+    document.title = "CONNECTION TERMINATED";
+    document.body.addEventListener("keydown", (onprs) => {
+      if (onprs.key === "F5") { window.location.replace("/"); }
+    });
+    return;
+  } else { syntaxValidator(); }
+}
+
 function syntaxValidator() {
   let inp = document.getElementById("synInput");
   inp.addEventListener("keydown", (k) => {
@@ -7,8 +25,8 @@ function syntaxValidator() {
       if (urlArgs == "debug") { // debug mode on
         document.getElementById("synInput").blur();
         document.body.insertAdjacentHTML("afterbegin", `
-          <div id="dlg">
-            <div>
+          <div id="dlg" onclick="{ document.getElementById('dlg').remove(); }">
+            <div onclick="{ event.stopPropagation(); }">
               <p>You typed: ${inp.value}</p>
               <p>Decoded output: ${btoa(inp.value)}</p>
               <br>
@@ -30,7 +48,7 @@ function syn(h) {
   document.getElementById("synInput").blur();
   switch (h) {
     case "TnVtaXRyb3Zh": // Numitrova
-      document.body.insertAdjacentHTML("afterbegin", `
+      return document.body.insertAdjacentHTML("afterbegin", `
         <div id="dlg">
           <iframe
             src="/numitrova.html"
@@ -38,11 +56,10 @@ function syn(h) {
           ></iframe>
         </div>
       `);
-      return;
     case "SnVuc3Vp": // Junsui
-      document.body.insertAdjacentHTML("afterbegin", `
-        <div id="dlg">
-          <div style="width: 25rem;">
+      return document.body.insertAdjacentHTML("afterbegin", `
+        <div id="dlg" onclick="{ document.getElementById('dlg').remove(); }">
+          <div style="width: 25rem;" onclick="{ event.stopPropagation(); }">
             <p>This will launch the program in another window. Click the button below to continue.</p>
             <br>
             <button onclick="{
@@ -52,11 +69,10 @@ function syn(h) {
           </div>
         </div>
       `);
-      return;
     case "SW50ZWxsaWNvcnA=": // Intellicorp
       document.body.insertAdjacentHTML("afterbegin", `
-        <div id="dlg">
-          <div style="width: 25rem;">
+        <div id="dlg" onclick="{ document.getElementById('dlg').remove(); }">
+          <div style="width: 25rem;" onclick="{ event.stopPropagation(); }">
             <p>The app will open on this window. To get back to this interface, type 'exit' or 'logoff'.</p>
             <br>
             <button onclick="{
@@ -67,9 +83,9 @@ function syn(h) {
       `);
       return;
     case "U29jaWFscw==": // Socials
-      document.body.insertAdjacentHTML("afterbegin", `
-        <div id="dlg">
-          <div style="width: 25rem;">
+      return document.body.insertAdjacentHTML("afterbegin", `
+        <div id="dlg" onclick="{ document.getElementById('dlg').remove(); }">
+          <div style="width: 25rem;" onclick="{ event.stopPropagation(); }">
             <p>ZER<span style="color: red;">0</span>'s socials</p>
             <br>
             <button onclick="{
@@ -95,12 +111,11 @@ function syn(h) {
           </div>
         </div>
       `);
-      return;
     case "Pw==": // ?
       if (urlArgs == "debug") { // debug mode on
-        document.body.insertAdjacentHTML("afterbegin", `
-          <div id="dlg">
-            <div style="width: 25rem;">
+        return document.body.insertAdjacentHTML("afterbegin", `
+          <div id="dlg" onclick="{ document.getElementById('dlg').remove(); }">
+            <div style="width: 25rem;" onclick="{ event.stopPropagation(); }">
               <p style="color: red">THIS MODE IS INTENDED FOR TESTING PURPOSES ONLY.</p>
               <br>
               <p>
@@ -124,10 +139,10 @@ function syn(h) {
           </div>
         `);
       } else {
-        document.body.insertAdjacentHTML("afterbegin", `
-          <div id="dlg">
-            <div>
-              <p>Commands:</p>
+        return document.body.insertAdjacentHTML("afterbegin", `
+          <div id="dlg" onclick="{ document.getElementById('dlg').remove(); }">
+            <div onclick="{ event.stopPropagation(); }">
+              <p>Commands (all case sensitive):</p>
               <br>
               <p>?</p>
               <p>Debug</p>
@@ -143,24 +158,25 @@ function syn(h) {
           </div>
         `);
       }
-      return;
     case "RGVidWc=" : // Debug
       if (urlArgs == "debug") { // debug mode on
         document.body.insertAdjacentHTML("afterbegin", `
-          <div id="dlg">
-            <div>
+          <div id="dlg" onclick="{ document.getElementById('dlg').remove(); }">
+            <div onclick="{ event.stopPropagation(); }">
               <p style="color: red;">YOU ARE IN DEBUG MODE!!</p>
               <br>
+              <p>Click the button below to exit this mode.</p>
+              <br>
               <button onclick="{
-                document.getElementById('dlg').remove();
-              }">OK</button>
+                window.location.replace('/');
+              }">Exit Debug Mode</button>
             </div>
           </div>
         `);
       } else {
-        document.body.insertAdjacentHTML("afterbegin", `
-          <div id="dlg">
-            <div style="width: 25rem;">
+        return document.body.insertAdjacentHTML("afterbegin", `
+          <div id="dlg" onclick="{ document.getElementById('dlg').remove(); }">
+            <div style="width: 25rem;" onclick="{ event.stopPropagation(); }">
               <p><span style="color: red;">WARNING:</span> This will relaunch the website in Debug Mode.</p>
               <br>
               <p>Click the button below to initiate this mode.</p>
@@ -172,11 +188,10 @@ function syn(h) {
           </div>
         `);
       }
-      return;
     default:
-      document.body.insertAdjacentHTML("afterbegin", `
-        <div id="dlg">
-          <div>
+      return document.body.insertAdjacentHTML("afterbegin", `
+        <div id="dlg" onclick="{ document.getElementById('dlg').remove(); }">
+          <div onclick="{ event.stopPropagation(); }">
             <p>Code is invalid.</p>
             <br>
             <button onclick="{
@@ -185,6 +200,5 @@ function syn(h) {
           </div>
         </div>
       `);
-      throw new Error("Code is invalid.");
   }
 }

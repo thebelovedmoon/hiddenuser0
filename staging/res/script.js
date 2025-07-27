@@ -134,7 +134,14 @@ function syn(h) {
                 document.getElementById('dlg').remove();
               }">GitHub repository</button>
               <br>
-              <p>Website commands are obtained outside of Debug Mode.</p>
+              <p>
+                Website commands are obtained
+                <span ondblclick="{
+                  event.stopPropagation();
+                  document.getElementById('dlg').remove();
+                  setTimeout(() => { syn(btoa('Debug')); }, 50);
+                }">outside of Debug Mode</span>.
+              </p>
             </div>
           </div>
         `);
@@ -160,7 +167,7 @@ function syn(h) {
       }
     case "RGVidWc=" : // Debug
       if (urlArgs == "debug") { // debug mode on
-        document.body.insertAdjacentHTML("afterbegin", `
+        return document.body.insertAdjacentHTML("afterbegin", `
           <div id="dlg" onclick="{ document.getElementById('dlg').remove(); }">
             <div onclick="{ event.stopPropagation(); }">
               <p style="color: red;">YOU ARE IN DEBUG MODE!!</p>
@@ -192,7 +199,7 @@ function syn(h) {
       return document.body.insertAdjacentHTML("afterbegin", `
         <div id="dlg" onclick="{ document.getElementById('dlg').remove(); }">
           <div onclick="{ event.stopPropagation(); }">
-            <p>Code is invalid.</p>
+            <p>Command not found. Use '?' for available commands.</p>
             <br>
             <button onclick="{
               document.getElementById('dlg').remove();

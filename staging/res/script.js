@@ -108,6 +108,10 @@ function syn(h) {
               window.open('https://reddit.com/user/hiddenuser0_');
               document.getElementById('dlg').remove();
             }">Reddit</button>
+            <button onclick="{
+              window.open('https://github.com/OrlandJszenger');
+              document.getElementById('dlg').remove();
+            }">GitHub</button>
           </div>
         </div>
       `);

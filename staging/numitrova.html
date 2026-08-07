@@ -6,9 +6,7 @@
     <title>CLICK ANYWHERE TO UNMUTE.</title>
     <link rel="stylesheet" href="/res/style.css" />
     <style>
-      body {
-        overflow: hidden;
-      }
+      body { overflow: hidden; }
       video {
         width: 100vw;
         height: 100vh;
@@ -18,10 +16,10 @@
     </style>
     <script>
       function unmute() {
-        document.getElementById("rheaVid").muted = false;
-        document.getElementById("rheaVid").style.cursor = "initial";
-        document.getElementById("rheaVid").style.pointerEvents = "none";
-        document.title = "numitrova.html";
+        document.querySelector("#rheaVid").muted = false;
+        document.querySelector("#rheaVid").style.cursor = "initial";
+        document.querySelector("#rheaVid").style.pointerEvents = "none";
+        parent.document.title = "numitrova.html";
       }
     </script>
   </head>
@@ -30,8 +28,8 @@
       id="rheaVid"
       autoplay
       muted
-      onclick="unmute()"
-      onended="window.parent.document.getElementById('dlg').remove()"
+      onclick="{ unmute(); }"
+      onended="{ parent.document.querySelector('#dlg').remove(); }"
       preload="metadata"
     >
       <source

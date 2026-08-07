@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>intellicorp.html</title>
-    <link rel="stylesheet" href="/res/style.css" />
-    <style>
+    <link rel="stylesheet" type="text/css" href="/res/style.css" media="all">
+    <style rel="stylesheet" type="text/css" media="all">
       @import url('https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&display=swap');
       html { background-color: black; }
       body {
@@ -19,14 +19,17 @@
       }
       .curHide { visibility: hidden; }
     </style>
-    <script src="/res/intellicorp.js"></script>
-    <script src="/res/cmdCommands.js"></script>
-    <script src="/res/INTERIM_apps/cdir.js"></script> <!-- cd -->
-    <script src="/res/INTERIM_apps/lsdir.js"></script> <!-- dir -->
-    <script src="/res/INTERIM_apps/sys.exec.js"></script> <!-- sys.exec -->
-    <script src="/res/INTERIM_apps/zero.exec.js"></script> <!-- zero.exec -->
+    <!-- INTERIM File System "/" -->
+      <!-- /bin -->
+      <script type="text/javascript" src="/res/interimFileSystem/bin/interimFileSystem.js"></script>
+      <script type="text/javascript" src="/res/interimFileSystem/bin/terminalProvisioning.js"></script>
+      <script type="text/javascript" src="/res/interimFileSystem/bin/terminalCommands.js"></script>
+      <!-- /intellicorp -->
+      <script type="text/javascript" src="/res/interimFileSystem/intellicorp/prog.exec.js"></script>
+    <script type="text/javascript" src="/res/interimFileSystem/sys.exec.js"></script>
+    <script type="text/javascript" src="/res/interimFileSystem/zero.exec.js"></script>
   </head>
-  <body onload="init()">
+  <body onload="{ init(); }">
     <div id="cmdInterface">
     </div>
   </body>

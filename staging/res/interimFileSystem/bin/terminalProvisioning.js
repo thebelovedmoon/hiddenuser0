@@ -1,10 +1,26 @@
-var terminalInstance = 0,
+let terminalInstance = 0,
   typedArgs = "",
-  lastSavedArg = "";
+  lastSavedArg = [];
 
 function init() {
   // curBlink();
   intelliStart();
+  // tabTitleStartup();
+  parent.document.title = "Loading...";
+}
+
+function tabTitleStartup() {
+  const blks = [
+    "\u259b",
+    "\u259c",
+    "\u259f",
+    "\u2599"
+  ];
+  let idx = 0;
+  setInterval(() => {
+    parent.document.title = blks[idx];
+    idx = (idx + 1) % blks.length;
+  }, 100);
 }
 
 function curBlink() {
@@ -12,7 +28,7 @@ function curBlink() {
 }
 
 function intelliStart() {
-  let cmdIntrf = document.getElementById("cmdInterface");
+  let cmdIntrf = document.querySelector("#cmdInterface");
   cmdIntrf.insertAdjacentHTML("beforeend",`
     <p>Starting up...</p>
   `);
@@ -25,7 +41,7 @@ function intelliStart() {
     `);
     progBar();
     setTimeout(() => {
-      document.getElementById("progBSeq").remove();
+      document.querySelector("#progBSeq").remove();
       setTimeout(() => {
         cmdIntrf.insertAdjacentHTML("beforeend",`
           <br>
@@ -44,7 +60,7 @@ function intelliStart() {
             `);
             progBar();
             setTimeout(() => {
-              document.getElementById("progBSeq").remove();
+              document.querySelector("#progBSeq").remove();
               setTimeout(() => {
                 cmdIntrf.insertAdjacentHTML("beforeend",`
                   <br>
@@ -72,9 +88,9 @@ function intelliStart() {
                         `);
                         progBar();
                         setTimeout(() => {
-                          document.getElementById("progBSeq").remove();
-                          document.getElementById("audioCheck").innerHTML =
-                            "Audio: [ OK ]";
+                          document.querySelector("#progBSeq").remove();
+                          document.querySelector("#audioCheck").innerHTML =
+                            `Audio: <span style="color: green;">[ OK ]</span>`;
                           setTimeout(() => {
                             cmdIntrf.insertAdjacentHTML("beforeend",`
                               <p id="videoCheck">Video: Checking...</p>
@@ -87,7 +103,10 @@ function intelliStart() {
                                 </div>
                               `);
                               progBar();
-                              setTimeout(() => {document.getElementById("progBSeq").remove();document.getElementById("videoCheck").innerHTML = "Video: [ OK ]";
+                              setTimeout(() => {
+                                document.querySelector("#progBSeq").remove();
+                                document.querySelector("#videoCheck").innerHTML =
+                                  `Video: <span style="color: green;">[ OK ]</span>`;
                                 setTimeout(() => {
                                   cmdIntrf.insertAdjacentHTML("beforeend",`
                                     <p>IP address: 148.37.170.203</p>
@@ -98,6 +117,8 @@ function intelliStart() {
                                       if (!localStorage.getItem("PRINT_WORKING_DIRECTORY")) {
                                         localStorage.setItem("PRINT_WORKING_DIRECTORY", "/");
                                       }
+                                      // PROVISION SANDBOXED APPS AS UNSANDBOXED
+                                      localStorage.setItem("/intellicorp/prog.exec isSandboxed", false);
                                       intellicorpTerminal();
                                     }, 250);
                                   }, 2500);
@@ -120,18 +141,19 @@ function intelliStart() {
 }
 
 function progBar() {
-  var progB = "";
+  let progB = "";
   for (let p = 0; p < 50; p++) {
     setTimeout(() => {
       progB += "&#x2589;";
-      document.getElementById("progBar").innerHTML = progB;
+      document.querySelector("#progBar").innerHTML = progB;
     }, p * 50);
   }
 }
 
 function intellicorpTerminal() {
+  let cmdHistory = lastSavedArg.length;
   terminalInstance += 1;
-  typedArgs = "";
+  // typedArgs = "";
   const specialKeys = [
     "Alt",
     "ArrowDown",
@@ -179,51 +201,65 @@ function intellicorpTerminal() {
     "Shift",
     "Tab",
   ];
-  document.title = "INTERIM Terminal";
-  document.getElementById("cmdInterface").insertAdjacentHTML("beforeend", `
+  parent.document.title = "INTERIM Terminal";
+  document.querySelector("#cmdInterface").insertAdjacentHTML("beforeend", `
     <p><span>${localStorage.getItem("PRINT_WORKING_DIRECTORY")}></span>&nbsp;<span id="typeSomeStuff-${terminalInstance}"></span></p>
   `);
-  document.getElementById(`typeSomeStuff-${terminalInstance}`).setAttribute("contenteditable", "plaintext-only");
-  setTimeout(() => { document.getElementById(`typeSomeStuff-${terminalInstance}`).focus(); }, 0);
-  document.body.addEventListener("click", () => { document.getElementById(`typeSomeStuff-${terminalInstance}`).focus(); });
-  document
-    .getElementById(`typeSomeStuff-${terminalInstance}`)
-    .addEventListener("keydown", (tSS) => {
-      if (specialKeys.includes(tSS.key)) {
-        if (tSS.key === "Backspace") {
-          typedArgs = typedArgs.slice(0, -1);
-        } else if (tSS.key === "Enter") {
-          document.getElementById(`typeSomeStuff-${terminalInstance}`).setAttribute("contenteditable", "false");
-          document.getElementById(`typeSomeStuff-${terminalInstance}`).blur();
-          lastSavedArg = typedArgs;
-          if (!localStorage.getItem("PRINT_WORKING_DIRECTORY")) {
-            document.getElementById("cmdInterface").insertAdjacentHTML("beforeend", `
-              <p>Working directory not found -- returning to root...</p>
-            `);
-            setTimeout(() => {
-              lastSavedArg = "";
-              localStorage.setItem("PRINT_WORKING_DIRECTORY", "/");
-              document.getElementById("cmdInterface").insertAdjacentHTML("beforeend", "<br>");
-              intellicorpTerminal();
-            }, 1000);
-          } else {
-            execCommands(typedArgs);
-          }
-        } else if (
-          ((tSS.key === "Control" || tSS.key === "Meta") && tSS.key === "R") ||
-          ((tSS.key === "Control" || tSS.key === "Meta") &&
-            tSS.key === "Shift" &&
-            tSS.key === "R") ||
-          tSS.key === "F5"
-        ) {
-          tSS.stopImmediatePropagation();
-          tSS.preventDefault();
-          execCommands("reboot");
-        } else if (tSS.key === "ArrowUp") {
-          document.getElementById(`typeSomeStuff-${terminalInstance}`).innerHTML = lastSavedArg;
-          typedArgs = lastSavedArg;
+  document.querySelector(`#typeSomeStuff-${terminalInstance}`).setAttribute("contenteditable", "plaintext-only");
+  setTimeout(() => { document.querySelector(`#typeSomeStuff-${terminalInstance}`).focus(); }, 0);
+  document.body.addEventListener("click", () => { document.querySelector(`#typeSomeStuff-${terminalInstance}`).focus(); });
+  document.querySelector(`#typeSomeStuff-${terminalInstance}`).addEventListener("keydown", (tSS) => {
+    if (specialKeys.includes(tSS.key)) {
+      if (tSS.key === "Enter") {
+        document.querySelector(`#typeSomeStuff-${terminalInstance}`).setAttribute("contenteditable", "false");
+        document.querySelector(`#typeSomeStuff-${terminalInstance}`).blur();
+        typedArgs = document.querySelector(`#typeSomeStuff-${terminalInstance}`).innerText;
+        if (!(!typedArgs)) { lastSavedArg.push(typedArgs); }
+        if (sysDirs.includes(localStorage.getItem("PRINT_WORKING_DIRECTORY"))) {
+          document.querySelector("#cmdInterface").insertAdjacentHTML("beforeend",`
+            <p>Access denied -- returning to root...</p>
+          `);
+          return setTimeout(() => {
+            localStorage.setItem("PRINT_WORKING_DIRECTORY", "/");
+            document.querySelector("#cmdInterface").insertAdjacentHTML("beforeend", "<br>");
+            intellicorpTerminal();
+          }, 1000);
+        } else if (!localStorage.getItem("PRINT_WORKING_DIRECTORY")) {
+          document.querySelector("#cmdInterface").insertAdjacentHTML("beforeend", `
+            <p>Working directory not found -- returning to root...</p>
+          `);
+          return setTimeout(() => {
+            localStorage.setItem("PRINT_WORKING_DIRECTORY", "/");
+            document.querySelector("#cmdInterface").insertAdjacentHTML("beforeend", "<br>");
+            intellicorpTerminal();
+          }, 1000);
+        } else { execCommands(typedArgs); }
+      } else if (
+        ((tSS.key === "Control" || tSS.key === "Meta") && tSS.key === "R") ||
+        ((tSS.key === "Control" || tSS.key === "Meta") && tSS.key === "Shift" && tSS.key === "R") ||
+        tSS.key === "F5"
+      ) {
+        tSS.stopImmediatePropagation();
+        tSS.preventDefault();
+        execCommands("reboot");
+      } else if (tSS.key === "ArrowUp") {
+        tSS.preventDefault();
+        if (cmdHistory > 0) {
+          cmdHistory--;
+          document.querySelector(`#typeSomeStuff-${terminalInstance}`).innerText = lastSavedArg[cmdHistory];
         }
-      } else { typedArgs += tSS.key; }
-      // document.title = "> " + typedArgs;
-    });
+      } else if (tSS.key === "ArrowDown") {
+        tSS.preventDefault();
+        if (cmdHistory < lastSavedArg.length - 1) {
+          cmdHistory++;
+          document.querySelector(`#typeSomeStuff-${terminalInstance}`).innerText = lastSavedArg[cmdHistory];
+        }
+        else if (cmdHistory === lastSavedArg.length - 1) {
+          cmdHistory++;
+          document.querySelector(`#typeSomeStuff-${terminalInstance}`).innerText = "";
+        }
+      }
+    } else { typedArgs += tSS.key; }
+    // parent.document.title = `> ${document.querySelector(`#typeSomeStuff-${terminalInstance}`).innerText}`;
+  });
 }

@@ -19,9 +19,7 @@ html {
   color: white;
 }
 
-body {
-  font-family: "Fixedsys Excelsior 3.01", monospace;
-}
+body { font-family: "Fixedsys Excelsior 3.01", monospace; }
 
 .centering {
   width: 100vw;
@@ -40,9 +38,7 @@ body {
   color: inherit;
   font-size: inherit;
 }
-.dialog > * {
-  text-align: center;
-}
+.dialog > * { text-align: center; }
 #synInput {
   background-color: unset;
   border-width: 1px;
@@ -63,7 +59,7 @@ button:hover {
   transition: background-color 0.3s ease;
 }
 
-#dlg {
+div[id^="dlg"] {
   position: absolute;
   width: 100vw;
   height: 100vh;
@@ -74,7 +70,7 @@ button:hover {
   background-color: #00000060;
   z-index: 1000;
 }
-#dlg > * {
+div[id^="dlg"] > * {
   max-width: 100%;
   padding: 15px;
   border: 1px red solid;
